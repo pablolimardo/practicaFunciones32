@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>15 Ejercicios Prácticos · Funciones en Python</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --surface-2: #21262d;
+  --primary: #2ea043;
+  --primary-dim: #1a7f37;
+  --text: #e6edf3;
+  --text-dim: #7d8590;
+  --accent: #f778ba;
+  --warning: #fbbf24;
+  --error: #ff4444;
+  --code-bg: #0d1117;
+}
+
+[data-theme="light"] {
+  --bg: #ffffff;
+  --surface: #f6f8fa;
+  --surface-2: #eaeef2;
+  --primary: #2ea043;
+  --primary-dim: #1a7f37;
+  --text: #24292f;
+  --text-dim: #57606a;
+  --accent: #d63384;
+  --warning: #f59e0b;
+  --error: #dc2626;
+  --code-bg: #f6f8fa;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+header {
+  background: linear-gradient(135deg, #1a7f37, #2ea043);
+  padding: 40px;
+  border-radius: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 40px rgba(46, 160, 67, 0.3);
+}
+
+h1 {
+  font-size: 2.5em;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: white;
+}
+
+.subtitle {
+  font-size: 1.2em;
+  color: rgba(255,255,255,0.95);
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.meta {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  background: rgba(255,255,255,0.2);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  font-weight: 600;
+}
+
+.nav {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 100;
+}
+
+.nav-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.nav-btn:hover {
+  transform: translateY(-2px);
+}
+
+.theme-btn {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 1.8em;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 3px solid var(--primary);
+}
+
+.ejercicio {
+  background: var(--surface);
+  padding: 30px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border-left: 5px solid var(--primary);
+  transition: all 0.3s;
+}
+
+.ejercicio:hover {
+  border-left-color: var(--accent);
+  box-shadow: 0 8px 20px rgba(46, 160, 67, 0.15);
+}
+
+.ej-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ej-numero {
+  font-size: 2em;
+  font-weight: 800;
+  color: var(--primary);
+  min-width: 50px;
+}
+
+.ej-nivel {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85em;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.nivel-basico {
+  background: rgba(46, 160, 67, 0.2);
+  color: var(--primary);
+}
+
+.nivel-intermedio {
+  background: rgba(251, 191, 36, 0.2);
+  color: var(--warning);
+}
+
+.nivel-avanzado {
+  background: rgba(247, 120, 186, 0.2);
+  color: var(--accent);
+}
+
+.ej-titulo {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.ej-desc {
+  color: var(--text-dim);
+  margin-bottom: 18px;
+  line-height: 1.8;
+}
+
+.enunciado {
+  background: var(--surface-2);
+  padding: 18px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  border-left: 3px solid var(--warning);
+}
+
+.enunciado-titulo {
+  font-weight: 700;
+  color: var(--warning);
+  margin-bottom: 10px;
+  font-size: 0.95em;
+}
+
+.code-block {
+  background: var(--code-bg);
+  padding: 16px;
+  border-radius: 10px;
+  border: 2px solid var(--surface-2);
+  overflow-x: auto;
+  margin-bottom: 15px;
+}
+
+pre {
+  margin: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85em;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.tests {
+  background: linear-gradient(135deg, rgba(46, 160, 67, 0.1), rgba(46, 160, 67, 0.05));
+  padding: 16px;
+  border-radius: 10px;
+  margin-top: 12px;
+  border-left: 3px solid var(--primary);
+}
+
+.tests-titulo {
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 10px;
+  font-size: 0.95em;
+}
+
+.test-item {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85em;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+  padding-left: 16px;
+  position: relative;
+}
+
+.test-item::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.pista {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(251, 191, 36, 0.05));
+  padding: 14px;
+  border-radius: 8px;
+  margin-top: 12px;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  display: none;
+}
+
+.pista.mostrar {
+  display: block;
+}
+
+.pista-titulo {
+  font-weight: 700;
+  color: var(--warning);
+  margin-bottom: 8px;
+  font-size: 0.9em;
+}
+
+.pista-btn {
+  background: transparent;
+  color: var(--warning);
+  border: 1px solid var(--warning);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8em;
+  font-weight: 600;
+  transition: all 0.2s;
+  margin-top: 10px;
+}
+
+.pista-btn:hover {
+  background: rgba(251, 191, 36, 0.1);
+}
+
+.contexto-acpi {
+  background: linear-gradient(135deg, rgba(58, 130, 246, 0.1), rgba(58, 130, 246, 0.05));
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 12px;
+  border-left: 3px solid #3b82f6;
+  font-size: 0.9em;
+  color: var(--text-dim);
+}
+
+.contexto-acpi strong {
+  color: #3b82f6;
+}
+
+.grid-ej {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  h1 { font-size: 1.8em; }
+  .grid-ej { grid-template-columns: 1fr; }
+  .ej-header { flex-direction: column; align-items: flex-start; }
+}
+
+footer {
+  text-align: center;
+  margin-top: 60px;
+  padding: 30px;
+  background: var(--surface);
+  border-radius: 12px;
+  color: var(--text-dim);
+  font-size: 0.95em;
+}
+
+.progreso {
+  background: var(--surface);
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  border: 2px solid var(--surface-2);
+}
+
+.progreso-titulo {
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.progreso-bar {
+  background: var(--surface-2);
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progreso-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), #10b981);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.progreso-texto {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85em;
+  color: var(--text-dim);
+}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <button class="nav-btn theme-btn" id="themeBtn" onclick="toggleTheme()">☀️ Claro</button>
+  <button class="nav-btn" onclick="window.print()">🖨️ Imprimir</button>
+</div>
+
+<div class="container">
+
+<header>
+  <h1>📝 15 Ejercicios de Funciones en Python</h1>
+  <div class="subtitle">Taller de Programación · 3°1° y 3°2°</div>
+  <div class="meta">
+    <div class="badge">🐍 Python Básico</div>
+    <div class="badge">📚 Práctica Semanal</div>
+    <div class="badge">⭐ Fácil → Difícil</div>
+  </div>
+</header>
+
+<div class="progreso">
+  <div class="progreso-titulo">📊 Tu progreso (marca cada ejercicio que completes)</div>
+  <div class="progreso-bar">
+    <div class="progreso-fill" id="progresoBar" style="width: 0%;"></div>
+  </div>
+  <div class="progreso-texto" id="progresoTexto">0 de 15 ejercicios completados (0%)</div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     NIVEL BÁSICO (1-4)
+════════════════════════════════════════════ -->
+
+<div class="section">
+  <div class="section-title">⭐ Nivel Básico: Fundamentos</div>
+
+  <!-- EJ 1 -->
+  <div class="ejercicio">
+    <div class="ej-header">
+      <div class="ej-numero">1</div>
+      <div class="ej-nivel nivel-basico">Básico</div>
+    </div>
+    <div class="ej-titulo">Función que suma dos números</div>
+    <div class="ej-desc">Crea una función que recibe dos números y devuelve su suma.</div>
+
+    <div class="enunciado">
+      <div class="enunciado-titulo">📋 Enunciado</div>
+      <p>Define una función <code>sumar(a, b)</code> que:</p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>Recibe dos números <code>a</code> y <code>b</code></li>
+        <li>Devuelve la suma de ambos</li>
+      </ul>
+    </div>
+
+    <div class="code-block">
+      <pre><code># Escribí tu función aquí
+def sumar(a, b):
+    # TODO: Completá
+
+# Tests
+print(sumar(5, 3))      # 8
+print(sumar(10, -2))    # 8
+print(sumar(0, 0))      # 0</code></pre>
+    </div>
+    
+    <div class="tests">
+      <div class="tests-titulo">✓ Casos de prueba:</div>
+      <div class="test-item">sumar(5, 3) debe devolver 8</div>
+      <div class="test-item">sumar(10, -2) debe devolver 8</div>
+      <div class="test-item">sumar(0, 0) debe devolver 0</div>
+    </div>
+
+    <button class="pista-btn" onclick="togglePista(this)">💡 Ver pista</button>
+    <div class="pista">
+      <div class="pista-titulo">Pista:</div>
+      <p>Usa el operador <code>+</code> para sumar y <code>return</code> para devolver el resultado.</p>
+    </div>
+
+    <label style="display: flex; align-items: center; gap: 10px; margin-top: 15px; cursor: pointer;">
+      <input type="checkbox" class="ej-check" onchange="actualizarProgreso()">
+      <span>Completado</span>
+    </label>
+  </div>
+
+  <!-- EJ 2 -->
+  <div class="ejercicio">
+    <div class="ej-header">
+      <div class="ej-numero">2</div>
+      <div class="ej-nivel nivel-basico">Básico</div>
+    </div>
+    <div class="ej-titulo">Función que convierte Celsius a Fahrenheit</div>
+    <div class="ej-desc">Crea una función que convierte grados Celsius a Fahrenheit.</div>
+
+    <div class="enunciado">
+      <div class="enunciado-titulo">📋 Enunciado</div>
+      <p>Define una función <code>celsius_a_fahrenheit(celsius)</code> que:</p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>Recibe una temperatura en Celsius</li>
+        <li>Devuelve la temperatura en Fahrenheit usando la fórmula: (C × 9/5) + 32</li>
+      </ul>
+    </div>
+
+    <div class="code-block">
+      <pre><code>def celsius_a_fahrenheit(celsius):
+    # TODO: Completá
+
+# Tests
+print(celsius_a_fahrenheit(0))      # 32
+print(celsius_a_fahrenheit(100))    # 212
+print(celsius_a_fahrenheit(-40))    # -40</code></pre>
+    </div>
+
+    <div class="tests">
+      <div class="tests-titulo">✓ Casos de prueba:</div>
+      <div class="test-item">celsius_a_fahrenheit(0) debe devolver 32</div>
+      <div class="test-item">celsius_a_fahrenheit(100) debe devolver 212</div>
+      <div class="test-item">celsius_a_fahrenheit(-40) debe devolver -40</div>
+    </div>
+
+    <button class="pista-btn" onclick="togglePista(this)">💡 Ver pista</button>
+    <div class="pista">
+      <div class="pista-titulo">Pista:</div>
+      <p>La fórmula es: <code>fahrenheit = (celsius * 9/5) + 32</code></p>
+    </div>
+
+    <label style="display: flex; align-items: center; gap: 10px; margin-top: 15px; cursor: pointer;">
+      <input type="checkbox" class="ej-check" onchange="actualizarProgreso()">
+      <span>Completado</span>
+    </label>
+  </div>
+
+  <!-- EJ 3 -->
+  <div class="ejercicio">
+    <div class="ej-header">
+      <div class="ej-numero">3</div>
+      <div class="ej-nivel nivel-basico">Básico</div>
+    </div>
+    <div class="ej-titulo">Función que calcula el área de un círculo</div>
+    <div class="ej-desc">Crea una función que calcula el área de un círculo dado su radio.</div>
+
+    <div class="enunciado">
+      <div class="enunciado-titulo">📋 Enunciado</div>
+      <p>Define una función <code>area_circulo(radio)</code> que:</p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>Recibe el radio de un círculo</li>
+        <li>Devuelve el área usando: π × r²</li>
+        <li>Usa <code>import math</code> para acceder a <code>math.pi</code></li>
+      </ul>
+    </div>
+
+    <div class="code-block">
+      <pre><code>import math
+
+def area_circulo(radio):
+    # TODO: Completá
+
+# Tests
+print(area_circulo(1))      # 3.14159...
+print(area_circulo(5))      # 78.539...
+print(area_circulo(10))     # 314.159...</code></pre>
+    </div>
+
+    <div class="tests">
+      <div class="tests-titulo">✓ Casos de prueba:</div>
+      <div class="test-item">area_circulo(1) ≈ 3.14159</div>
+      <div class="test-item">area_circulo(5) ≈ 78.539</div>
+      <div class="test-item">area_circulo(10) ≈ 314.159</div>
+    </div>
+
+    <button class="pista-btn" onclick="togglePista(this)">💡 Ver pista</button>
+    <div class="pista">
+      <div class="pista-titulo">Pista:</div>
+      <p>Usa: <code>return math.pi * radio ** 2</code> (o <code>radio * radio</code>)</p>
+    </div>
+
+    <label style="display: flex; align-items: center; gap: 10px; margin-top: 15px; cursor: pointer;">
+      <input type="checkbox" class="ej-check" onchange="actualizarProgreso()">
+      <span>Completado</span>
+    </label>
+  </div>
+
+  <!-- EJ 4 -->
+  <div class="ejercicio">
+    <div class="ej-header">
+      <div class="ej-numero">4</div>
+      <div class="ej-nivel nivel-basico">Básico</div>
+    </div>
+    <div class="ej-titulo">Función que verifica si un número es par</div>
+    <div class="ej-desc">Crea una función que devuelve True si un número es par, False si es impar.</div>
+
+    <div class="enunciado">
+      <div class="enunciado-titulo">📋 Enunciado</div>
+      <p>Define una función <code>es_par(numero)</code> que:</p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>Recibe un número entero</li>
+        <li>Devuelve True si es par, False si es impar</li>
+        <li>Un número es par si el resto de dividirlo por 2 es 0</li>
+      </ul>
+    </div>
+
+    <div class="code-block">
+      <pre><code>def es_par(numero):
+    # TODO: Completá
+
+# Tests
+print(es_par(4))        # True
+print(es_par(7))        # False
+print(es_par(0))        # True
+print(es_par(-2))       # True</code></pre>
+    </div>
+
+    <div class="tests">
+      <div class="tests-titulo">✓ Casos de prueba:</div>
+      <div class="test-item">es_par(4) debe devolver True</div>
+      <div class="test-item">es_par(7) debe devolver False</div>
+      <div class="test-item">es_par(0) debe devolver True</div>
+      <div class="test-item">es_par(-2) debe devolver True</div>
+    </div>
+
+    <button class="pista-btn" onclick="togglePista(this)">💡 Ver pista</button>
+    <div class="pista">
+      <div class="pista-titulo">Pista:</div>
+      <p>Usa el operador módulo <code>%</code>. Si <code>numero % 2 == 0</code> es par.</p>
+    </div>
+
+    <label style="display: flex; align-items: center; gap: 10px; margin-top: 15px; cursor: pointer;">
+      <input type="checkbox" class="ej-check" onchange="actualizarProgreso()">
+      <span>Completado</span>
+    </label>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     NIVEL INTERMEDIO BAJO (5-8)
+════════════════════════════════════════════ -->
+
+<div class="section">
+  <div class="section-title">⭐⭐ Nivel Intermedio Bajo: Condicionales</div>
+
+  <!-- EJ 5 -->
+  <div class="ejercicio">
+    <div class="ej-header">
+      <div class="ej-numero">5</div>
+      <div class="ej-nivel nivel-intermedio">Intermedio</div>
+    </div>
+    <div class="ej-titulo">Función que clasifica temperaturas (ACPI)</div>
+    <div class="ej-desc">Clasifica una temperatura como FRIO, OK o CALOR según rangos.</div>
+
+    <div class="enunciado">
+      <div class="enunciado-titulo">📋 Enunciado</div>
+      <p>Define una función <code>clasificar_temperatura(temp)</code> que:</p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>Si temp < 18 °C: devuelve "FRIO"</li>
+        <li>Si temp entre 18 y 24 °C: devuelve "OK"</li>
+        <li>Si temp > 24 °C: devuelve "CALOR"</li>
+      </ul>
+    </div>
+
+    <div class="code-block">
+      <pre><code>def clasificar_temperatura(temp):
+    # TODO: Completá
+
+# Tests
+print(clasificar_temperatura(10))    # FRIO
+print(clasificar_temperatura(21))    # OK
+print(clasificar_temperatura(28))    # CALOR</code></pre>
+    </div>
+
+    <div class="tests">
+      <div class="tests-titulo">✓ Casos de prueba:</div>
+      <div class="test-item">clasificar_temperatura(10) devuelve "FRIO"</div>
+      <div class="test-item">clasificar_temperatura(21) devuelve "OK"</div>
+      <div class="test-item">clasificar_temperatura(28) devuelve "CALOR"</div>
+    </div>
+
+    <div class="contexto-acpi">
+      <strong>🏭 Contexto ACPI:</strong> Sistema de monitoreo de temperatura en línea de producción.
+    </div>
+
+    <button class="pista-btn" onclick="togglePista(this)">💡 Ver pista</button>
+    <div class="pista">
+      <div class="pista-titulo">Pista:</div>
+      <p>Usa <code>if/elif/else</code> para las tres condiciones.</p>
+    </div>
+
+    <label style="display: flex; align-items: center; gap: 10px; margin-top: 15px; cursor: pointer;">
+      <input type="checkbox" class="ej-check" onchange="actualizarProgreso()">
+      <span>Completado</span>
+    </label>
+  </div>
+
+  <!-- EJ 6 -->
+  <div class="ejercicio">
+    <div class="ej-header">
+      <div class="ej-numero">6</div>
+      <div class="ej-nivel nivel-intermedio">Intermedio</div>
+    </div>
+    <div class="ej-titulo">Función que calcula el IMC (Índice de Masa Corporal)</div>
+    <div class="ej-desc">Calcula el IMC y clasifica el resultado.</div>
+
+    <div class="enunciado">
+      <div class="enunciado-titulo">📋 Enunciado</div>
+      <p>Define una función <code>calcular_imc(peso, altura)</code> que:</p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>Recibe peso (kg) y altura (m)</li>
+        <li>Calcula IMC = peso / (altura²)</li>
+        <li>Devuelve el IMC redondeado a 2 decimales</li>
+        <li>Usa <code>round(valor, 2)</code> para redondear</li>
+      </ul>
+    </div>
+
+    <div class="code-block">
+      <pre><code>def calcular_imc(peso, altura):
+    # TODO: Completá
+
+# Tests
+print(calcular_imc(70, 1.75))   # 22.86
+print(calcular_imc(85, 1.80))   # 26.23
+print(calcular_imc(60, 1.65))   # 22.04</code></pre>
+    </div>
+
+    <div class="tests">
+      <div class="tests-titulo">✓ Casos de prueba:</div>
+      <div class="test-item">calcular_imc(70, 1.75) ≈ 22.86</div>
+      <div class="test-item">calcular_imc(85, 1.80) ≈ 26.23</div>
+      <div class="test-item">calcular_imc(60, 1.65) ≈ 22.04</div>
+    </div>
+
+    <button class="pista-btn" onclick="togglePista(this)">💡 Ver pista</button>
+    <div class="pista">
+      <div class="pista-titulo">Pista:</div>
+      <p><code>imc = peso / (altura ** 2)</code> y luego <code>return round(imc, 2)</code></p>
+    </div>
+
+    <label style="display: flex; align-items: center; gap: 10px; margin-top: 15px; cursor: pointer;">
+      <input type="checkbox" class="ej-check" onchange="actualizarProgreso()">
+      <span>Completado</span>
+    </label>
+  </div>
+
+  <!-- EJ 7 -->
+  <div class="ejercicio">
+    <div class="ej-header">
+      <div class="ej-numero">7</div>
+      <div class="ej-nivel nivel-intermedio">Intermedio</div>
+    </div>
+    <div class="ej-titulo">Función que calcula descuentos en compras</div>
+    <div class="ej-desc">Aplica un descuento según el monto de compra.</div>
+
+    <div class="enunciado">
+      <div class="enunciado-titulo">📋 Enunciado</div>
+      <p>Define una función <code>aplicar_descuento(monto)</code> que:</p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>Si monto < $100: descuento 0%</li>
+        <li>Si monto >= $100 y < $500: descuento 10%</li>
+        <li>Si monto >= $500 y < $1000: descuento 20%</li>
+        <li>Si monto >= $1000: descuento 30%</li>
+        <li>Devuelve el monto FINAL (después del descuento)</li>
+      </ul>
+    </div>
+
+    <div class="code-block">
+      <pre><code>def aplicar_descuento(monto):
+    # TODO: Completá
+
+# Tests
+print(aplicar_descuento(50))     # 50 (sin descuento)
+print(aplicar_descuento(100))    # 90 (10% descuento)
+print(aplicar_descuento(500))    # 400 (20% descuento)
+print(aplicar_descuento(1000))   # 700 (30% descuento)</code></pre>
+    </div>
+
+    <div class="tests">
+      <div class="tests-titulo">✓ Casos de prueba:</div>
+      <div class="test-item">aplicar_descuento(50) devuelve 50</div>
+      <div class="test-item">aplicar_descuento(100) devuelve 90</div>
+      <div class="test-item">aplicar_descuento(500) devuelve 400</div>
+      <div class="test-item">aplicar_descuento(1000) devuelve 700</div>
+    </div>
+
+    <button class="pista-btn" onclick="togglePista(this)">💡 Ver pista</button>
+    <div class="pista">
+      <div class="pista-titulo">Pista:</div>
+      <p>Calcula primero el porcentaje de descuento, luego: <code>monto_final = monto * (1 - descuento/100)</code></p>
+    </div>
+
+    <label style="display: flex; align-items: center; gap: 10px; margin-top: 15px; cursor: pointer;">
+      <input type="checkbox" class="ej-check" onchange="actualizarProgreso()">
+      <span>Completado</span>
+    </label>
+  </div>
+
+  <!-- EJ 8 -->
+  <div class="ejercicio">
+    <div class="ej-header">
+      <div class="ej-numero">8</div>
+      <div class="ej-nivel nivel-intermedio">Intermedio</div>
+    </div>
+    <div class="ej-titulo">Función que valida contraseñas</div>
+    <div class="ej-desc">Verifica que una contraseña sea segura.</div>
+
+    <div class="enunciado">
+      <div class="enunciado-titulo">📋 Enunciado</div>
+      <p>Define una función <code>es_contraseña_segura(password)</code> que:</p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>Devuelve True si cumple TODOS estos requisitos:</li>
+        <li>Tiene al menos 8 caracteres</li>
+        <li>Contiene al menos una mayúscula</li>
+        <li>Contiene al menos un número</li>
+        <li>Devuelve False si falla alguno de estos</li>
+      </ul>
+    </div>
+
+    <div class="code-block">
+      <pre><code>def es_contraseña_segura(password):
+    # TODO: Completá
+
+# Tests
+print(es_contraseña_segura("abc123"))      # False (< 8 chars)
+print(es_contraseña_segura("Abc12345"))    # True
+print(es_contraseña_segura("abcdefgh"))    # False (sin mayúscula)
+print(es_contraseña_segura("ABCDEFGH"))    # False (sin número)</code></pre>
+    </div>
+
+    <div class="tests">
+      <div class="tests-titulo">✓ Casos de prueba:</div>
+      <div class="test-item">es_contraseña_segura("abc123") devuelve False</div>
+      <div class="test-item">es_contraseña_segura("Abc12345") devuelve True</div>
+      <div class="test-item">es_contraseña_segura("abcdefgh") devuelve False</div>
+      <div class="test-item">es_contraseña_segura("ABCDEFGH") devuelve False</div>
+    </div>
+
+    <button class="pista-btn" onclick="togglePista(this)">💡 Ver pista</button>
+    <div class="pista">
+      <div class="pista-titulo">Pista:</div>
+      <p>Usa: <code>len(password) >= 8</code>, <code>any(c.isupper() for c in password)</code>, <code>any(c.isdigit() for c in password)</code></p>
+    </div>
+
+    <label style="display: flex; align-items: center; gap: 10px; margin-top: 15px; cursor: pointer;">
+      <input type="checkbox" class="ej-check" onchange="actualizarProgreso()">
+      <span>Completado</span>
+    </label>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     NIVEL INTERMEDIO ALTO (9-12)
+════════════════════════════════════════════ -->
+
+<div class="section">
+  <div class="section-title">⭐⭐⭐ Nivel Intermedio Alto: Listas y Bucles</div>
+
+  <!-- EJ 9 -->
+  <div class="ejercicio">
+    <div class="ej-header">
+      <div class="ej-numero">9</div>
+      <div class="ej-nivel nivel-intermedio">Intermedio</div>
+    </div>
+    <div class="ej-titulo">Función que suma los elementos de una lista</div>
+    <div class="ej-desc">Suma todos los números dentro de una lista.</div>
+
+    <div class="enunciado">
+      <div class="enunciado-titulo">📋 Enunciado</div>
+      <p>Define una función <code>sumar_lista(numeros)</code> que:</p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>Recibe una lista de números</li>
+        <li>Devuelve la suma de TODOS los elementos</li>
+        <li>Si la lista está vacía, devuelve 0</li>
+      </ul>
+    </div>
+
+    <div class="code-block">
+      <pre><code>def sumar_lista(numeros):
+    # TODO: Completá
+
+# Tests
+print(sumar_lista([1, 2, 3]))           # 6
+print(sumar_lista([5, 10, 15, 20]))     # 50
+print(sumar_lista([-5, 5, -10, 10]))    # 0
+print(sumar_lista([]))                  # 0</code></pre>
+    </div>
+
+    <div class="tests">
+      <div class="tests-titulo">✓ Casos de prueba:</div>
+      <div class="test-item">sumar_lista([1, 2, 3]) devuelve 6</div>
+      <div class="test-item">sumar_lista([5, 10, 15, 20]) devuelve 50</div>
+      <div class="test-item">sumar_lista([-5, 5, -10, 10]) devuelve 0</div>
+      <div class="test-item">sumar_lista([]) devuelve 0</div>
+    </div>
+
+    <button class="pista-btn" onclick="togglePista(this)">💡 Ver pista</button>
+    <div class="pista">
+      <div class="pista-titulo">Pista:</div>
+      <p>Puedes usar un bucle <code>for</code> o la función integrada <code>sum(numeros)</code></p>
+    </div>
+
+    <label style="display: flex; align-items: center; gap: 10px; margin-top: 15px; cursor: pointer;">
+      <input type="checkbox" class="ej-check" onchange="actualizarProgreso()">
+      <span>Completado</span>
+    </label>
+  </div>
+
+  <!-- EJ 10 -->
+  <div class="ejercicio">
+    <div class="ej-header">
+      <div class="ej-numero">10</div>
+      <div class="ej-nivel nivel-intermedio">Intermedio</div>
+    </div>
+    <div class="ej-titulo">Función que encuentra el número mayor en una lista</div>
+    <div class="ej-desc">Encuentra y devuelve el máximo valor de una lista.</div>
+
+    <div class="enunciado">
+      <div class="enunciado-titulo">📋 Enunciado</div>
+      <p>Define una función <code>encontrar_maximo(numeros)</code> que:</p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>Recibe una lista de números</li>
+        <li>Devuelve el número MAYOR de la lista</li>
+        <li>NO usar la función <code>max()</code> de Python</li>
+      </ul>
+    </div>
+
+    <div class="code-block">
+      <pre><code>def encontrar_maximo(numeros):
+    # TODO: Completá (sin usar max())
+
+# Tests
+print(encontrar_maximo([3, 7, 2, 8, 1]))     # 8
+print(encontrar_maximo([10, 5, 15, 3]))      # 15
+print(encontrar_maximo([-5, -2, -10]))       # -2
+print(encontrar_maximo([100]))               # 100</code></pre>
+    </div>
+
+    <div class="tests">
+      <div class="tests-titulo">✓ Casos de prueba:</div>
+      <div class="test-item">encontrar_maximo([3, 7, 2, 8, 1]) devuelve 8</div>
+      <div class="test-item">encontrar_maximo([10, 5, 15, 3]) devuelve 15</div>
+      <div class="test-item">encontrar_maximo([-5, -2, -10]) devuelve -2</div>
+      <div class="test-item">encontrar_maximo([100]) devuelve 100</div>
+    </div>
+
+    <button class="pista-btn" onclick="togglePista(this)">💡 Ver pista</button>
+    <div class="pista">
+      <div class="pista-titulo">Pista:</div>
+      <p>Comienza con una variable <code>maximo = numeros[0]</code> y compara en un bucle.</p>
+    </div>
+
+    <label style="display: flex; align-items: center; gap: 10px; margin-top: 15px; cursor: pointer;">
+      <input type="checkbox" class="ej-check" onchange="actualizarProgreso()">
+      <span>Completado</span>
+    </label>
+  </div>
+
+  <!-- EJ 11 -->
+  <div class="ejercicio">
+    <div class="ej-header">
+      <div class="ej-numero">11</div>
+      <div class="ej-nivel nivel-intermedio">Intermedio</div>
+    </div>
+    <div class="ej-titulo">Función que cuenta palabras en un texto</div>
+    <div class="ej-desc">Cuenta cuántas palabras hay en un texto.</div>
+
+    <div class="enunciado">
+      <div class="enunciado-titulo">📋 Enunciado</div>
+      <p>Define una función <code>contar_palabras(texto)</code> que:</p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>Recibe un texto (string)</li>
+        <li>Devuelve la cantidad de palabras</li>
+        <li>Las palabras se separan por espacios</li>
+        <li>Usa <code>texto.split()</code> para dividir</li>
+      </ul>
+    </div>
+
+    <div class="code-block">
+      <pre><code>def contar_palabras(texto):
+    # TODO: Completá
+
+# Tests
+print(contar_palabras("Hola mundo"))           # 2
+print(contar_palabras("Python es genial"))     # 3
+print(contar_palabras("a"))                    # 1
+print(contar_palabras(""))                     # 0</code></pre>
+    </div>
+
+    <div class="tests">
+      <div class="tests-titulo">✓ Casos de prueba:</div>
+      <div class="test-item">contar_palabras("Hola mundo") devuelve 2</div>
+      <div class="test-item">contar_palabras("Python es genial") devuelve 3</div>
+      <div class="test-item">contar_palabras("a") devuelve 1</div>
+      <div class="test-item">contar_palabras("") devuelve 0</div>
+    </div>
+
+    <button class="pista-btn" onclick="togglePista(this)">💡 Ver pista</button>
+    <div class="pista">
+      <div class="pista-titulo">Pista:</div>
+      <p><code>palabras = texto.split()</code> devuelve una lista. Luego usa <code>len()</code></p>
+    </div>
+
+    <label style="display: flex; align-items: center; gap: 10px; margin-top: 15px; cursor: pointer;">
+      <input type="checkbox" class="ej-check" onchange="actualizarProgreso()">
+      <span>Completado</span>
+    </label>
+  </div>
+
+  <!-- EJ 12 -->
+  <div class="ejercicio">
+    <div class="ej-header">
+      <div class="ej-numero">12</div>
+      <div class="ej-nivel nivel-intermedio">Intermedio</div>
+    </div>
+    <div class="ej-titulo">Función que invierte una lista</div>
+    <div class="ej-desc">Devuelve una lista con los elementos en orden inverso.</div>
+
+    <div class="enunciado">
+      <div class="enunciado-titulo">📋 Enunciado</div>
+      <p>Define una función <code>invertir_lista(lista)</code> que:</p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>Recibe una lista</li>
+        <li>Devuelve una NUEVA lista con los elementos invertidos</li>
+        <li>NO modificar la lista original</li>
+        <li>NO usar el método <code>.reverse()</code></li>
+      </ul>
+    </div>
+
+    <div class="code-block">
+      <pre><code>def invertir_lista(lista):
+    # TODO: Completá (sin usar .reverse())
+
+# Tests
+print(invertir_lista([1, 2, 3, 4]))          # [4, 3, 2, 1]
+print(invertir_lista(['a', 'b', 'c']))       # ['c', 'b', 'a']
+print(invertir_lista([]))                    # []
+print(invertir_lista([42]))                  # [42]</code></pre>
+    </div>
+
+    <div class="tests">
+      <div class="tests-titulo">✓ Casos de prueba:</div>
+      <div class="test-item">invertir_lista([1, 2, 3, 4]) devuelve [4, 3, 2, 1]</div>
+      <div class="test-item">invertir_lista(['a', 'b', 'c']) devuelve ['c', 'b', 'a']</div>
+      <div class="test-item">invertir_lista([]) devuelve []</div>
+      <div class="test-item">invertir_lista([42]) devuelve [42]</div>
+    </div>
+
+    <button class="pista-btn" onclick="togglePista(this)">💡 Ver pista</button>
+    <div class="pista">
+      <div class="pista-titulo">Pista:</div>
+      <p>Puedes usar <code>lista[::-1]</code> (slicing) o un bucle que construya una nueva lista.</p>
+    </div>
+
+    <label style="display: flex; align-items: center; gap: 10px; margin-top: 15px; cursor: pointer;">
+      <input type="checkbox" class="ej-check" onchange="actualizarProgreso()">
+      <span>Completado</span>
+    </label>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     NIVEL AVANZADO (13-15)
+════════════════════════════════════════════ -->
+
+<div class="section">
+  <div class="section-title">⭐⭐⭐⭐ Nivel Avanzado: Proyectos Integrados</div>
+
+  <!-- EJ 13 -->
+  <div class="ejercicio">
+    <div class="ej-header">
+      <div class="ej-numero">13</div>
+      <div class="ej-nivel nivel-avanzado">Avanzado</div>
+    </div>
+    <div class="ej-titulo">Función que calcula estadísticas de una lista (ACPI)</div>
+    <div class="ej-desc">Calcula promedio, mínimo y máximo de una lista de sensores.</div>
+
+    <div class="enunciado">
+      <div class="enunciado-titulo">📋 Enunciado</div>
+      <p>Define una función <code>estadisticas(numeros)</code> que:</p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>Recibe una lista de números (mediciones de sensores)</li>
+        <li>Devuelve un diccionario con: {'promedio': X, 'minimo': Y, 'maximo': Z}</li>
+        <li>Promedio = suma / cantidad</li>
+      </ul>
+    </div>
+
+    <div class="code-block">
+      <pre><code>def estadisticas(numeros):
+    # TODO: Completá
+
+# Tests
+resultado = estadisticas([10, 20, 30, 40])
+print(resultado)  
+# {'promedio': 25.0, 'minimo': 10, 'maximo': 40}
+
+resultado = estadisticas([5, 15])
+print(resultado['promedio'])  # 10.0</code></pre>
+    </div>
+
+    <div class="tests">
+      <div class="tests-titulo">✓ Casos de prueba:</div>
+      <div class="test-item">Para [10, 20, 30, 40]: promedio=25, min=10, max=40</div>
+      <div class="test-item">Para [5, 15]: promedio=10</div>
+      <div class="test-item">La función devuelve un diccionario con esas 3 claves</div>
+    </div>
+
+    <div class="contexto-acpi">
+      <strong>🏭 Contexto ACPI:</strong> Análisis de lecturas de sensores en tiempo real. El sistema necesita dar estadísticas rápidamente.
+    </div>
+
+    <button class="pista-btn" onclick="togglePista(this)">💡 Ver pista</button>
+    <div class="pista">
+      <div class="pista-titulo">Pista:</div>
+      <p>Calcula cada valor por separado y devuelve: <code>return {'promedio': prom, 'minimo': mini, 'maximo': maxi}</code></p>
+    </div>
+
+    <label style="display: flex; align-items: center; gap: 10px; margin-top: 15px; cursor: pointer;">
+      <input type="checkbox" class="ej-check" onchange="actualizarProgreso()">
+      <span>Completado</span>
+    </label>
+  </div>
+
+  <!-- EJ 14 -->
+  <div class="ejercicio">
+    <div class="ej-header">
+      <div class="ej-numero">14</div>
+      <div class="ej-nivel nivel-avanzado">Avanzado</div>
+    </div>
+    <div class="ej-titulo">Función que procesa pedidos con cálculo de total</div>
+    <div class="ej-desc">Calcula el total de una compra con múltiples productos.</div>
+
+    <div class="enunciado">
+      <div class="enunciado-titulo">📋 Enunciado</div>
+      <p>Define una función <code>calcular_total_pedido(pedido)</code> que:</p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>Recibe un diccionario con artículos: {'producto': cantidad}</li>
+        <li>Los precios están definidos (usa un diccionario DENTRO de la función)</li>
+        <li>Ejemplo: {'manzana': 3, 'pan': 2} significa 3 manzanas y 2 panes</li>
+        <li>Devuelve el costo total</li>
+      </ul>
+    </div>
+
+    <div class="code-block">
+      <pre><code>def calcular_total_pedido(pedido):
+    # Define los precios
+    precios = {
+        'manzana': 1.5,
+        'pan': 2.0,
+        'leche': 3.0,
+        'queso': 5.0
+    }
+    
+    # TODO: Completá
+    # Calcula: cantidad * precio de cada producto
+
+# Tests
+print(calcular_total_pedido({'manzana': 3, 'pan': 2}))      # 7.5
+print(calcular_total_pedido({'leche': 2, 'queso': 1}))      # 11.0
+print(calcular_total_pedido({}))                             # 0</code></pre>
+    </div>
+
+    <div class="tests">
+      <div class="tests-titulo">✓ Casos de prueba:</div>
+      <div class="test-item">{'manzana': 3, 'pan': 2} → 1.5*3 + 2.0*2 = 7.5</div>
+      <div class="test-item">{'leche': 2, 'queso': 1} → 3.0*2 + 5.0*1 = 11.0</div>
+      <div class="test-item">{} (vacío) → 0</div>
+    </div>
+
+    <button class="pista-btn" onclick="togglePista(this)">💡 Ver pista</button>
+    <div class="pista">
+      <div class="pista-titulo">Pista:</div>
+      <p>Usa un bucle <code>for producto, cantidad in pedido.items():</code> para iterar el diccionario.</p>
+    </div>
+
+    <label style="display: flex; align-items: center; gap: 10px; margin-top: 15px; cursor: pointer;">
+      <input type="checkbox" class="ej-check" onchange="actualizarProgreso()">
+      <span>Completado</span>
+    </label>
+  </div>
+
+  <!-- EJ 15 -->
+  <div class="ejercicio">
+    <div class="ej-header">
+      <div class="ej-numero">15</div>
+      <div class="ej-nivel nivel-avanzado">Avanzado</div>
+    </div>
+    <div class="ej-titulo">Proyecto: Sistema de Monitoreo de Temperatura (ACPI)</div>
+    <div class="ej-desc">Integra múltiples funciones para un sistema completo.</div>
+
+    <div class="enunciado">
+      <div class="enunciado-titulo">📋 Enunciado</div>
+      <p>Crea un pequeño sistema que:</p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>Tiene una función que recibe una lista de temperaturas</li>
+        <li>Cuenta cuántas mediciones están ALTAS (> 25°C)</li>
+        <li>Cuenta cuántas BAJAS (< 18°C)</li>
+        <li>Calcula el promedio</li>
+        <li>Devuelve un diccionario con toda la información</li>
+      </ul>
+    </div>
+
+    <div class="code-block">
+      <pre><code>def analizar_temperaturas(lecturas):
+    """
+    Analiza un conjunto de lecturas de temperatura
+    Devuelve: {
+        'total': cantidad,
+        'promedio': float,
+        'altas': cantidad > 25,
+        'bajas': cantidad < 18,
+        'estado': 'CRITICO' / 'ALERTA' / 'NORMAL'
+    }
+    Estado:
+    - CRITICO si hay > 2 altas o > 2 bajas
+    - ALERTA si hay 1-2 altas o 1-2 bajas
+    - NORMAL si no hay altas ni bajas
+    """
+    # TODO: Completá
+
+# Tests
+print(analizar_temperaturas([20, 21, 22]))  
+# {'total': 3, 'promedio': 21, 'altas': 0, 'bajas': 0, 'estado': 'NORMAL'}
+
+print(analizar_temperaturas([10, 26, 28, 20]))  
+# {'total': 4, 'promedio': 21, 'altas': 2, 'bajas': 1, 'estado': 'ALERTA'}</code></pre>
+    </div>
+
+    <div class="tests">
+      <div class="tests-titulo">✓ Casos de prueba:</div>
+      <div class="test-item">[20, 21, 22] → NORMAL (sin extremos)</div>
+      <div class="test-item">[10, 26, 28, 20] → ALERTA (2 altas, 1 baja)</div>
+      <div class="test-item">[5, 27, 28, 29, 16] → CRITICO (3 altas, 2 bajas)</div>
+    </div>
+
+    <div class="contexto-acpi">
+      <strong>🏭 Contexto ACPI:</strong> Sistema completo de monitoreo industrial. Integra conteos, promedio y lógica de decisión. Este es el tipo de código que escriben los ingenieros en sistemas reales.
+    </div>
+
+    <button class="pista-btn" onclick="togglePista(this)">💡 Ver pista</button>
+    <div class="pista">
+      <div class="pista-titulo">Pista:</div>
+      <p>Separa en pasos: 1) contar altas/bajas, 2) calcular promedio, 3) decidir estado, 4) retornar diccionario.</p>
+    </div>
+
+    <label style="display: flex; align-items: center; gap: 10px; margin-top: 15px; cursor: pointer;">
+      <input type="checkbox" class="ej-check" onchange="actualizarProgreso()">
+      <span>Completado</span>
+    </label>
+  </div>
+</div>
+
+<footer>
+  <strong>Taller de Programación · 3°1° y 3°2°</strong><br>
+  Escuela Industrial N°9 · El Calafate · Semana del [FECHA]<br>
+  Prof. Pablo Limardo | 2026
+</footer>
+
+</div>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const btn = document.getElementById('themeBtn');
+  const isDark = html.getAttribute('data-theme') === 'light';
+  
+  if (isDark) {
+    html.removeAttribute('data-theme');
+    btn.textContent = '☀️ Claro';
+    localStorage.setItem('theme_ejercicios', 'dark');
+  } else {
+    html.setAttribute('data-theme', 'light');
+    btn.textContent = '🌙 Oscuro';
+    localStorage.setItem('theme_ejercicios', 'light');
+  }
+}
+
+if (localStorage.getItem('theme_ejercicios') === 'light') {
+  document.documentElement.setAttribute('data-theme', 'light');
+  document.getElementById('themeBtn').textContent = '🌙 Oscuro';
+}
+
+function togglePista(btn) {
+  const pista = btn.nextElementSibling;
+  pista.classList.toggle('mostrar');
+  btn.textContent = pista.classList.contains('mostrar') ? '💡 Ocultar pista' : '💡 Ver pista';
+}
+
+function actualizarProgreso() {
+  const checks = document.querySelectorAll('.ej-check');
+  const completados = Array.from(checks).filter(c => c.checked).length;
+  const total = checks.length;
+  const porcentaje = Math.round((completados / total) * 100);
+  
+  document.getElementById('progresoBar').style.width = porcentaje + '%';
+  document.getElementById('progresoTexto').textContent = 
+    `${completados} de ${total} ejercicios completados (${porcentaje}%)`;
+  
+  localStorage.setItem('progreso_ejercicios', JSON.stringify(
+    Array.from(checks).map((c, i) => ({ numero: i + 1, completado: c.checked }))
+  ));
+}
+
+// Cargar progreso guardado
+window.addEventListener('load', () => {
+  const progreso = localStorage.getItem('progreso_ejercicios');
+  if (progreso) {
+    const datos = JSON.parse(progreso);
+    datos.forEach(d => {
+      const checks = document.querySelectorAll('.ej-check');
+      if (checks[d.numero - 1]) {
+        checks[d.numero - 1].checked = d.completado;
+      }
+    });
+    actualizarProgreso();
+  }
+});
+</script>
+
+</body>
+</html>
