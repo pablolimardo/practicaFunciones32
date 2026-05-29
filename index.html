@@ -309,15 +309,60 @@ pre {
   color: #3b82f6;
 }
 
-.grid-ej {
+.material-estudio {
+  background: linear-gradient(135deg, rgba(58, 130, 246, 0.1) 0%, rgba(99, 102, 241, 0.05) 100%);
+  padding: 25px;
+  border-radius: 12px;
+  border-left: 5px solid #3b82f6;
+  margin-bottom: 30px;
+}
+
+.material-estudio p {
+  color: var(--text);
+  margin-bottom: 15px;
+}
+
+.material-estudio strong {
+  color: #3b82f6;
+}
+
+.grid-funciones {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.func-card {
+  background: var(--surface-2);
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 3px solid #10b981;
+}
+
+.func-card code {
+  font-weight: 700;
+  color: #10b981;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.func-card-desc {
+  font-size: 0.9em;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.grid-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
+  margin-top: 15px;
 }
 
 @media (max-width: 768px) {
   h1 { font-size: 1.8em; }
-  .grid-ej { grid-template-columns: 1fr; }
+  .grid-comparison { grid-template-columns: 1fr; }
   .ej-header { flex-direction: column; align-items: flex-start; }
 }
 
@@ -365,6 +410,43 @@ footer {
   font-size: 0.85em;
   color: var(--text-dim);
 }
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface-2);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.9em;
+}
+
+.comparison-table th {
+  background: rgba(46, 160, 67, 0.2);
+  padding: 12px;
+  text-align: center;
+  font-weight: 700;
+  border-bottom: 2px solid var(--primary);
+  color: var(--primary);
+}
+
+.comparison-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.comparison-table tr:hover {
+  background: rgba(46, 160, 67, 0.1);
+}
+
+.comparison-table code {
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #10b981;
+  font-size: 0.9em;
+}
 </style>
 </head>
 <body>
@@ -395,6 +477,207 @@ footer {
 </div>
 
 <!-- ════════════════════════════════════════════
+     MATERIAL DE ESTUDIO: FUNCIONES ÚTILES
+════════════════════════════════════════════ -->
+
+<div class="section">
+  <div class="section-title">📚 Material de Estudio: Funciones Útiles</div>
+  
+  <div class="material-estudio">
+    <p><strong>🎯 Estas funciones aparecen en los ejercicios. Estudialas ANTES de empezar.</strong></p>
+    <p>No las tengas que memorizar, pero sí conoce qué hacen. Las vas a usar especialmente en el <strong>Ejercicio 8</strong>.</p>
+  </div>
+
+  <!-- FUNCIONES DE VERIFICACIÓN DE CARACTERES -->
+  <div class="ejercicio" style="border-left-color: #3b82f6;">
+    <div class="ej-titulo">🔤 Funciones de Verificación de Caracteres</div>
+    <div class="ej-desc">Estas funciones preguntan: "¿qué tipo de carácter es éste?"</div>
+
+    <div class="enunciado" style="border-left-color: #3b82f6;">
+      <div class="enunciado-titulo" style="color: #3b82f6;">📋 Las 6 Funciones Clave</div>
+      
+      <div class="grid-funciones">
+        <div class="func-card">
+          <code>.isupper()</code>
+          <div class="func-card-desc">¿Es mayúscula?</div>
+          <div class="code-block" style="margin: 0; padding: 8px; font-size: 0.75em;">
+            <pre><code>"A".isupper()    # True ✅
+"a".isupper()    # False ❌</code></pre>
+          </div>
+        </div>
+
+        <div class="func-card">
+          <code>.islower()</code>
+          <div class="func-card-desc">¿Es minúscula?</div>
+          <div class="code-block" style="margin: 0; padding: 8px; font-size: 0.75em;">
+            <pre><code>"a".islower()    # True ✅
+"A".islower()    # False ❌</code></pre>
+          </div>
+        </div>
+
+        <div class="func-card">
+          <code>.isdigit()</code>
+          <div class="func-card-desc">¿Es número?</div>
+          <div class="code-block" style="margin: 0; padding: 8px; font-size: 0.75em;">
+            <pre><code>"5".isdigit()    # True ✅
+"a".isdigit()    # False ❌</code></pre>
+          </div>
+        </div>
+
+        <div class="func-card">
+          <code>.isalpha()</code>
+          <div class="func-card-desc">¿Solo letras?</div>
+          <div class="code-block" style="margin: 0; padding: 8px; font-size: 0.75em;">
+            <pre><code>"abc".isalpha()   # True ✅
+"abc5".isalpha()  # False ❌</code></pre>
+          </div>
+        </div>
+
+        <div class="func-card">
+          <code>.isalnum()</code>
+          <div class="func-card-desc">¿Letras O números?</div>
+          <div class="code-block" style="margin: 0; padding: 8px; font-size: 0.75em;">
+            <pre><code>"abc123".isalnum()  # True ✅
+"abc@".isalnum()    # False ❌</code></pre>
+          </div>
+        </div>
+
+        <div class="func-card">
+          <code>.count()</code>
+          <div class="func-card-desc">¿Cuántos hay?</div>
+          <div class="code-block" style="margin: 0; padding: 8px; font-size: 0.75em;">
+            <pre><code>password.count("A")  # 1
+"banana".count("a")  # 3</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="pista-btn" onclick="togglePista(this)">💡 Tabla Comparativa Completa</button>
+    <div class="pista">
+      <div class="pista-titulo">¿Cuál función devuelve True para cada carácter?</div>
+      <table class="comparison-table" style="margin-top: 10px;">
+        <tr>
+          <th>Carácter</th>
+          <th><code>isupper</code></th>
+          <th><code>islower</code></th>
+          <th><code>isdigit</code></th>
+          <th><code>isalpha</code></th>
+          <th><code>isalnum</code></th>
+        </tr>
+        <tr>
+          <td><code>"A"</code></td>
+          <td>✅</td><td>❌</td><td>❌</td><td>✅</td><td>✅</td>
+        </tr>
+        <tr>
+          <td><code>"a"</code></td>
+          <td>❌</td><td>✅</td><td>❌</td><td>✅</td><td>✅</td>
+        </tr>
+        <tr>
+          <td><code>"5"</code></td>
+          <td>❌</td><td>❌</td><td>✅</td><td>❌</td><td>✅</td>
+        </tr>
+        <tr>
+          <td><code>"@"</code></td>
+          <td>❌</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td>
+        </tr>
+        <tr>
+          <td><code>"A5"</code></td>
+          <td>❌</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- any() y all() -->
+  <div class="ejercicio" style="border-left-color: #f778ba;">
+    <div class="ej-titulo">⚡ Funciones Lógicas: any() y all()</div>
+    <div class="ej-desc">Preguntas de "¿hay algo?" y "¿hay todo?"</div>
+
+    <div class="enunciado" style="border-left-color: #f778ba;">
+      <div class="enunciado-titulo" style="color: #f778ba;">📋 any() vs all()</div>
+      
+      <div class="grid-comparison">
+        <div style="background: rgba(247, 120, 186, 0.1); padding: 15px; border-radius: 8px; border: 1px solid rgba(247, 120, 186, 0.3);">
+          <div style="font-weight: 700; color: #f778ba; margin-bottom: 10px;">any() — "¿AL MENOS UNO?"</div>
+          <div class="code-block" style="margin: 10px 0; padding: 10px;">
+            <pre><code>any([True, False])
+# True ✅ (hay 1 True)
+
+any([False, False])
+# False ❌ (ninguno)</code></pre>
+          </div>
+          <p style="color: var(--text-dim); font-size: 0.9em; margin-top: 10px;">Devuelve <strong>True</strong> si <strong>AL MENOS UNO</strong> cumple</p>
+        </div>
+
+        <div style="background: rgba(59, 130, 246, 0.1); padding: 15px; border-radius: 8px; border: 1px solid rgba(59, 130, 246, 0.3);">
+          <div style="font-weight: 700; color: #3b82f6; margin-bottom: 10px;">all() — "¿TODOS?"</div>
+          <div class="code-block" style="margin: 10px 0; padding: 10px;">
+            <pre><code>all([True, True])
+# True ✅ (todos True)
+
+all([True, False])
+# False ❌ (no todos)</code></pre>
+          </div>
+          <p style="color: var(--text-dim); font-size: 0.9em; margin-top: 10px;">Devuelve <strong>True</strong> si <strong>TODOS</strong> cumplen</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="pista-btn" onclick="togglePista(this)">💡 Uso Avanzado: Con Generadores</button>
+    <div class="pista">
+      <div class="pista-titulo">Cómo se usan en FUNCIONES REALES:</div>
+      <div class="code-block" style="margin-top: 10px;">
+        <pre><code>password = "Abc12345"
+
+# ¿Hay al menos UNA mayúscula?
+any(c.isupper() for c in password)
+# True ✅
+
+# ¿Hay al menos UN número?
+any(c.isdigit() for c in password)
+# True ✅
+
+# ¿Hay al menos UNA minúscula?
+any(c.islower() for c in password)
+# True ✅
+
+# ¿TODOS son alfanuméricos (sin símbolos)?
+all(c.isalnum() for c in password)
+# True ✅</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- APLICACIÓN PRÁCTICA -->
+  <div class="ejercicio" style="border-left-color: #fbbf24;">
+    <div class="ej-titulo">🎯 Ejemplo Completo: Ejercicio 8 (Validar Contraseña)</div>
+    <div class="ej-desc">Cómo combinar TODAS estas funciones para resolver un problema real:</div>
+
+    <div class="code-block">
+      <pre><code>def es_contraseña_segura(password):
+    """
+    Usa: len(), any(), isupper(), isdigit()
+    Comprueba que cumpla TODOS los requisitos
+    """
+    return (
+        len(password) >= 8 and                      # ← len()
+        any(c.isupper() for c in password) and      # ← any() + isupper()
+        any(c.isdigit() for c in password)          # ← any() + isdigit()
+    )
+
+# Tests
+print(es_contraseña_segura("abc123"))       # False (< 8 chars)
+print(es_contraseña_segura("Abc12345"))     # True ✅ (cumple todo)</code></pre>
+    </div>
+
+    <div class="contexto-acpi">
+      <strong>💡 Nota importante:</strong> Este es exactamente el <strong>Ejercicio 8</strong> de tu lista. Ahora entiendes cómo hacerlo, así que adelante con los ejercicios.
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
      NIVEL BÁSICO (1-4)
 ════════════════════════════════════════════ -->
 
@@ -420,8 +703,7 @@ footer {
     </div>
 
     <div class="code-block">
-      <pre><code># Escribí tu función aquí
-def sumar(a, b):
+      <pre><code>def sumar(a, b):
     # TODO: Completá
 
 # Tests
@@ -758,33 +1040,34 @@ print(aplicar_descuento(1000))   # 700 (30% descuento)</code></pre>
   </div>
 
   <!-- EJ 8 -->
-  <div class="ejercicio">
+  <div class="ejercicio" style="border-left-color: #fbbf24; background: linear-gradient(135deg, rgba(26, 127, 55, 0.05), rgba(26, 127, 55, 0));">
     <div class="ej-header">
       <div class="ej-numero">8</div>
       <div class="ej-nivel nivel-intermedio">Intermedio</div>
     </div>
-    <div class="ej-titulo">Función que valida contraseñas</div>
-    <div class="ej-desc">Verifica que una contraseña sea segura.</div>
+    <div class="ej-titulo">⭐ Función que valida contraseñas</div>
+    <div class="ej-desc">Verifica que una contraseña sea segura. USA las funciones que estudiaste arriba.</div>
 
-    <div class="enunciado">
-      <div class="enunciado-titulo">📋 Enunciado</div>
+    <div class="enunciado" style="border-left-color: #fbbf24; background: rgba(251, 191, 36, 0.05);">
+      <div class="enunciado-titulo" style="color: #fbbf24;">📋 Enunciado</div>
       <p>Define una función <code>es_contraseña_segura(password)</code> que:</p>
       <ul style="margin-left: 20px; margin-top: 10px;">
         <li>Devuelve True si cumple TODOS estos requisitos:</li>
-        <li>Tiene al menos 8 caracteres</li>
-        <li>Contiene al menos una mayúscula</li>
-        <li>Contiene al menos un número</li>
+        <li>✓ Tiene al menos 8 caracteres</li>
+        <li>✓ Contiene al menos una mayúscula (<code>.isupper()</code>)</li>
+        <li>✓ Contiene al menos un número (<code>.isdigit()</code>)</li>
         <li>Devuelve False si falla alguno de estos</li>
       </ul>
     </div>
 
     <div class="code-block">
       <pre><code>def es_contraseña_segura(password):
+    # Usa: len(), any(), isupper(), isdigit()
     # TODO: Completá
 
 # Tests
 print(es_contraseña_segura("abc123"))      # False (< 8 chars)
-print(es_contraseña_segura("Abc12345"))    # True
+print(es_contraseña_segura("Abc12345"))    # True ✅
 print(es_contraseña_segura("abcdefgh"))    # False (sin mayúscula)
 print(es_contraseña_segura("ABCDEFGH"))    # False (sin número)</code></pre>
     </div>
@@ -800,7 +1083,11 @@ print(es_contraseña_segura("ABCDEFGH"))    # False (sin número)</code></pre>
     <button class="pista-btn" onclick="togglePista(this)">💡 Ver pista</button>
     <div class="pista">
       <div class="pista-titulo">Pista:</div>
-      <p>Usa: <code>len(password) >= 8</code>, <code>any(c.isupper() for c in password)</code>, <code>any(c.isdigit() for c in password)</code></p>
+      <p><code>return len(password) >= 8 and any(c.isupper() for c in password) and any(c.isdigit() for c in password)</code></p>
+    </div>
+
+    <div class="contexto-acpi">
+      <strong>🎯 IMPORTANTE:</strong> Este ejercicio usa directamente las funciones que aprendiste en la sección "Material de Estudio". Ya sabes cómo hacerlo!
     </div>
 
     <label style="display: flex; align-items: center; gap: 10px; margin-top: 15px; cursor: pointer;">
@@ -1213,8 +1500,8 @@ print(analizar_temperaturas([10, 26, 28, 20]))
 
 <footer>
   <strong>Taller de Programación · 3°1° y 3°2°</strong><br>
-  Escuela Industrial N°9 · El Calafate · Semana del [FECHA]<br>
-  Prof. Pablo Limardo | 2026
+  Escuela Industrial N°9 · El Calafate · 2026<br>
+  Prof. Pablo Limardo
 </footer>
 
 </div>
